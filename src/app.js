@@ -29,16 +29,19 @@ function setStatus(status) {
 
 function addMessage(message, isUser = true) {
     const timestamp = new Date().toLocaleTimeString();
-    const messageElement = `
-        <div class="flex items-end ${isUser ? 'justify-end' : ''}">
-            <div class="${isUser ? 'bg-gray-700' : 'bg-blue-500'} text-white p-2 rounded-lg">
-                <p>${message}</p>
-                <span class="text-xs">${timestamp}</span>
-            </div>
-            <div class="w-2 h-2 rounded-full ${isUser ? 'bg-green-400 ml-2' : 'bg-blue-400 mr-2'} mt-4"></div>
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('flex', 'items-end');
+    if (isUser) {
+        messageElement.classList.add('justify-end');
+    }
+    messageElement.innerHTML = `
+        <div class="${isUser ? 'bg-gray-700' : 'bg-blue-500'} text-white p-2 rounded-lg">
+            <p>${message}</p>
+            <span class="text-xs">${timestamp}</span>
         </div>
+        <div class="w-2 h-2 rounded-full ${isUser ? 'bg-green-400 ml-2' : 'bg-blue-400 mr-2'} mt-4"></div>
     `;
-    chatWindow.innerHTML += messageElement;
+    chatWindow.appendChild(messageElement);
     chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
